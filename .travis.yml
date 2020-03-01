@@ -23,15 +23,34 @@ jobs:
     script:
     - mvn clean install -B -V
   - stage: generate-docs
+    name: "\U0001F427  javadoc"
+    os: linux
+    dist: bionic
+    language: java
+    jdk: openjdk11
+    addons:
+      apt:
+        update: true
+    git:
+      depth: 1
     if: tag IS present
     script:
     - mvn clean install -B -V
     - ".util/pages.sh"
   - stage: deploy
+    name: "\U0001F427  deploy"
+    os: linux
+    dist: bionic
+    language: java
+    jdk: openjdk11
+    addons:
+      apt:
+        update: true
+    git:
+      depth: 1
     if: tag IS present
     script:
-    - mvn clean install -B -V
-    - mvn deploy -Dregistry=https://maven.pkg.github.com/gtasa-savegame-editor -Dtoken=$GH_TOKEN
+    - ".util/deploy.sh"
 env:
   global:
     secure: MeQsd/4zNJpIW0yHQfmlRW0hc17/bejjJqSb6ZBsp96aSP1nJ0wg0+eJE7IC3qh3fBsoRdNAHe2XjL7sfTOr2izUQA008vz8O3v+Kz5WKftHnfYxOh/gE4SDXIEBpaguR8oco8b3Q1WvqbvgFMydKIk3z14zyXyVssfFDJisQQeQtLWExaKnFM1rQXOZOODo6YrYk/cCA1+3IqFbeyj/e60v2/43IL4nhvaz6HOkmAay0lbXcRN7onKbN/21NOl52tLHPdeJ2kIJ5ew+aWxozkZFtH2WixxkOvaTbsdoFS24DfyoxrWgwFwJ3MEOV/WXCQoHMcapWLpMxIZbBaCm8mpmj5O/9ntT967OUgbrZ7p4v7zNFuhNGYFyEJsDIKhlzlJReX+rq6mx4uVkGOOnXoAC2CqXy3xq0W8STvyag2dhWO62Jn3hDC+Olh42V+wpLWmuoaHSTngW9AEWl7nNdSzNlzgkwZEG9A27kWvSDBu9gyu6I2BQdx1faGPSM2lzI7iBVflMhQi3khuyukUFZ5bLmI6pcmzLeDaTtcLCZ5dwD77P2oOi1lptTNj4oXQqEv8wzEHYYhvGhuQNdz2MV2VDyhhW2wcRQhq8BzxPAvPxuqFPdQm/UZEyd4nJRixDrONyuyVC26q6tWnjrwk0jhGkhwUZH3klkEtUUTit9UY=
