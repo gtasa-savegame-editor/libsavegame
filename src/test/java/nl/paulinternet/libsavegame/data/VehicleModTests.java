@@ -1,13 +1,15 @@
 package nl.paulinternet.libsavegame.data;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class VehicleModTests extends TestCase {
+public class VehicleModTests {
 
+    @Test
     public void testNoDuplicateDffNames() {
         HashMap<String, ArrayList<Integer>> duplicatesFound = new HashMap<>();
         AtomicBoolean successful = new AtomicBoolean(true);
@@ -40,9 +42,10 @@ public class VehicleModTests extends TestCase {
             }
         });
 
-        assertTrue(successful.get());
+        Assert.assertTrue(successful.get());
     }
 
+    @Test
     public void testNoDuplicateNames() {
         HashMap<String, ArrayList<Integer>> duplicatesFound = new HashMap<>();
         AtomicBoolean successful = new AtomicBoolean(true);
@@ -75,9 +78,10 @@ public class VehicleModTests extends TestCase {
             }
         });
 
-        assertTrue(successful.get());
+        Assert.assertTrue(successful.get());
     }
 
+    @Test
     public void testNoDuplicateIds() {
         HashMap<Integer, ArrayList<String>> duplicatesFound = new HashMap<>();
         AtomicBoolean successful = new AtomicBoolean(true);
@@ -110,6 +114,6 @@ public class VehicleModTests extends TestCase {
             }
         });
 
-        assertTrue(successful.get());
+        Assert.assertTrue(successful.get());
     }
 }

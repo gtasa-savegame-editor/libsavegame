@@ -1,13 +1,16 @@
 package nl.paulinternet.libsavegame.data;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class VehicleTypeTests extends TestCase {
+public class VehicleTypeTests {
+
+    @Test
     public void testAllCarsHaveValidColors() {
         ArrayList<VehicleType> vehiclesWithoutValidColors = new ArrayList<>();
 
@@ -21,9 +24,10 @@ public class VehicleTypeTests extends TestCase {
             vehiclesWithoutValidColors.forEach(vt -> System.out.println("Car has no validColors: '" + vt.getName() + "'"));
         }
 
-        assertTrue(vehiclesWithoutValidColors.size() <= 15); // 15 cars have no color by design
+        Assert.assertTrue(vehiclesWithoutValidColors.size() <= 15); // 15 cars have no color by design
     }
 
+    @Test
     public void testNoDuplicateValidMods() {
         AtomicBoolean successful = new AtomicBoolean(true);
         VehicleType.getTypes().forEach(type -> {
@@ -41,9 +45,10 @@ public class VehicleTypeTests extends TestCase {
                 System.err.println("Duplicated mod for type '" + type.getName() + "': '" + mod + "'");
             });
         });
-        assertTrue(successful.get());
+        Assert.assertTrue(successful.get());
     }
 
+    @Test
     public void testNoDuplicateIds() {
         HashMap<Integer, ArrayList<String>> duplicatesFound = new HashMap<>();
         AtomicBoolean successful = new AtomicBoolean(true);
@@ -76,6 +81,6 @@ public class VehicleTypeTests extends TestCase {
             }
         });
 
-        assertTrue(successful.get());
+        Assert.assertTrue(successful.get());
     }
 }

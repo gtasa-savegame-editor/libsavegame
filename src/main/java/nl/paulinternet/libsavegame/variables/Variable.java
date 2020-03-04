@@ -28,7 +28,7 @@ public class Variable<E> implements TextFieldInterface {
     /**
      * Setter for the value that also calls the callbacks.
      * If you override this method, be sure to call
-     * {@link #handleChange(E)} in case there was an update!
+     * {@link #handleChange(Object)} in case there was an update!
      *
      * @param value the new value of this variable
      * @throws InvalidValueException if the value is invalid
@@ -82,9 +82,13 @@ public class Variable<E> implements TextFieldInterface {
         } else if (value instanceof Float) {
             //noinspection unchecked it's checked, check again
             value = (E) Float.valueOf(Float.parseFloat(text));
+        } else if (value instanceof Boolean) {
+            //noinspection unchecked it's checked, check again
+            value = (E) Boolean.valueOf(Boolean.parseBoolean(text));
         } else {
             throw new RuntimeException("Not implemented!");
         }
+        handleChange(value);
     }
 
     @Override
