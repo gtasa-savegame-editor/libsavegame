@@ -31,7 +31,7 @@ public class ByteArray
 	/**
 	 * Constructs a ByteArray representing a part of an array
 	 * 
-	 * @throws IndexOutOfBoundsException if (offset < 0 || offset + length > array.length)
+	 * @throws IndexOutOfBoundsException if (offset &lt; 0 || offset + length &gt; array.length)
 	 * @throws NullPointerException if the specified array is null
 	 */
 	public ByteArray (byte[] array, int offset, int length) {
@@ -88,7 +88,7 @@ public class ByteArray
 	/**
 	 * Gets the value of a byte.
 	 * 
-	 * @throws IndexOutOfBoundsException if (pos < 0 || pos > length)
+	 * @throws IndexOutOfBoundsException if (pos &lt; 0 || pos &gt; length)
 	 */
 	public byte getByte (int pos) {
 		if (pos < 0 || pos > length) throw new IndexOutOfBoundsException();
@@ -98,7 +98,7 @@ public class ByteArray
 	/**
 	 * Sets the value of a byte.
 	 * 
-	 * @throws IndexOutOfBoundsException if (pos < 0 || pos > length)
+	 * @throws IndexOutOfBoundsException if (pos &lt; 0 || pos &gt; length)
 	 */
 	public void setByte (int pos, byte value) {
 		if (pos < 0 || pos > length) throw new IndexOutOfBoundsException();
