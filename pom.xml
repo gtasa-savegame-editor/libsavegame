@@ -6,7 +6,7 @@
 
     <groupId>nl.paulinternet.gtasaveedit</groupId>
     <artifactId>libsavegame</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>GTA:SA Savegame API</name>
@@ -131,9 +131,8 @@
 
     <distributionManagement>
         <repository>
-            <id>github</id>
-            <name>GitHub Package Repository</name>
-            <url>https://maven.pkg.github.com/gtasa-savegame-editor/libsavegame</url>
+            <id>gammelcloud</id>
+            <url>https://nexus.gammel.cloud/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
 
