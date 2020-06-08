@@ -12,37 +12,53 @@ public class SavegameData {
     public static final int FILESIZE_ANDROID = 195002;
     public static final byte[] BLOCK = new byte[]{66, 76, 79, 67, 75};
 
-    private ByteSequence[] block = new ByteSequence[30];
+    private final ByteSequence[] block = new ByteSequence[30];
 
     public SavegameData() {
     }
 
-    public SavegameData(File filename) throws IOException, FileFormatException {
+    /**
+     * Constructor for Savegamedata that accepts a file.
+     *
+     * @param file the savegame file to load
+     * @throws IOException if there was an error loading the file
+     * @throws FileFormatException if there is an error with the savegame data
+     */
+    public SavegameData(File file) throws IOException, FileFormatException {
+        boolean android = false;
         // Read the data
-        RandomAccessFile file = null;
+        RandomAccessFile rfile = null;
         byte[] bytes;
         try {
-            file = new RandomAccessFile(filename, "r");
-            if (file.length() == FILESIZE) {
+            rfile = new RandomAccessFile(file, "r");
+            if (rfile.length() == FILESIZE) {
                 bytes = new byte[FILESIZE - 4];
-            } else if (file.length() == FILESIZE_ANDROID) {
+            } else if (rfile.length() == FILESIZE_ANDROID) {
                 bytes = new byte[FILESIZE_ANDROID - 4];
+                android = true;
             } else {
                 throw new FileFormatException();
             }
-
-            file.readFully(bytes);
+            rfile.readFully(bytes);
         } finally {
-            try {
-                file.close();
-            } catch (Exception ignored) {
+            if(rfile != null) {
+                try {
+                    rfile.close();
+                } catch (Exception ignored) {
+                }
             }
         }
 
         // Init
-        init(bytes);
+        init(bytes, android);
     }
 
+    /**
+     * Constructor for SavegameData that accepts a {@link java.net.URL}.
+     * @param url the url to load the savegame from
+     * @deprecated This is only to be used with PC savegames!
+     */
+    @Deprecated
     public SavegameData(URL url) {
         try {
             byte[] bytes = new byte[FILESIZE - 4];
@@ -51,17 +67,18 @@ public class SavegameData {
             in.readFully(bytes);
             in.close();
 
-            init(bytes);
+            init(bytes, false);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void init(byte[] bytes) throws IOException, FileFormatException {
+    private void init(byte[] bytes, boolean android) throws IOException, FileFormatException {
         // Search every occurrence of "BLOCK"
         int pos = 0;
-        int[] blockPos = new int[34];
-        for (int i = 0; i < 34; i++) {
+        int blockCount = android ? 31 : 34;
+        int[] blockPos = new int[blockCount];
+        for (int i = 0; i < blockCount; i++) {
             blockPos[i] = Util.indexOf(bytes, BLOCK, pos);
             if (blockPos[i] == -1) {
                 throw new FileFormatException();

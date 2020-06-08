@@ -80,11 +80,12 @@ public class SavegameTests {
      * @throws ErrorMessageException in case there was an error loading the savegame
      */
     @Test
-    @Ignore //FIXME unignore once Android saves work
+    //@Ignore //FIXME unignore once Android saves work
     public void testLoadValidAndroidSave() throws ErrorMessageException {
         // load savegame
         Savegame.get().load(getTestResource(VALID_ANDROID_SAVE));
         Variables variables = Variables.get();
+        System.out.println(variables.title.getText());
         //TODO: validate savegame
     }
 
