@@ -48,6 +48,10 @@ public class Garage {
         return garages;
     }
 
+    public boolean isValid() {
+        return valid;
+    }
+
     public static class Location {
         private final double x;
         private final double y;
