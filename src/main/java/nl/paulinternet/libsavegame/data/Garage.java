@@ -14,12 +14,18 @@ public class Garage {
     private final int id;
     private final Location location;
     private final String name, description;
+    private final boolean valid;
 
-    public Garage(int id, Location location, String name, String description) {
+    public Garage(int id, Location location, String name, String description, boolean valid) {
         this.id = id;
         this.location = location;
         this.name = name;
         this.description = description;
+        this.valid = valid;
+    }
+
+    public Garage(int id, Location location, String name, String description) {
+        this(id, location, name, description, true);
     }
 
     public int getId() {
@@ -53,6 +59,10 @@ public class Garage {
             this.z = z;
         }
 
+        public static Location invalid() {
+            return new Location(0, 0, 0);
+        }
+
         public double getX() {
             return x;
         }
@@ -72,9 +82,25 @@ public class Garage {
         garages = new ArrayList<>();
 
         // Data taken from: http://gta.wikia.com/wiki/Garage
+        // and: https://gtamods.com/wiki/Garage#San_Andreas
+        garages.add(new Garage(1, Location.invalid(), "invalid", "Opens only for target vehicle (set with opcode 021B) ", false));
+        garages.add(new Garage(2, Location.invalid(), "bomb_timed", "Bomb shop with timed detonator ", false));
+        garages.add(new Garage(3, Location.invalid(), "bomb_ignition", "Bomb shop with engine ignition detonation ", false));
+        garages.add(new Garage(4, Location.invalid(), "bomb_remote", "Bomb shop with remote-control detonator", false));
+        garages.add(new Garage(5, Location.invalid(), "spray", "Spray garage", false));
+        garages.add(new Garage(11, Location.invalid(), "strange0", "Strange garage. If anything touch it while is open, the garage will close. while closed no action is taken.", false));
+        garages.add(new Garage(14, Location.invalid(), "strange1", "The garage will open for target car. Once stopped inside, the garage door will close and the player will be frozen. After a moment, the door will reopen. Driving away from the garage will close the garage and the garage will no longer accept the car.", false));
+        garages.add(new Garage(15, Location.invalid(), "strange2", "Script garage. Script can open the garage, but can't close it.", false));
+
         garages.add(new Garage(16, new Location(2502.31, -1699.36, 12.4323), "cjsafe", "Ganton garage (Grove St.)"));
         garages.add(new Garage(17, new Location(319.326, -1768.93, 3.35686), "beacsv", "Santa Maria Beach garage"));
         garages.add(new Garage(18, new Location(2449.5, 695.018, 10.4742), "vEsvgrg", "Rockshore West garage"));
+
+        garages.add(new Garage(19, Location.invalid(), "strange3", "Script garage. The garage is fully controlled by the script, the script should open and the script should close!", false));
+        garages.add(new Garage(20, Location.invalid(), "strange4", "The garage will open for your car but it won't close by itself as long as the car is in the garage.", false));
+        garages.add(new Garage(21, Location.invalid(), "strange5", "The garage will open for your car. Once inside you will be frozen until the door closes. The door stays closed. It won't accept your car again if you manage to get it out and attempt to drive back in.", false));
+        garages.add(new Garage(23, Location.invalid(), "strange6", "The garage must be opened with a script command. Once inside you can leave your car in it and walk out. You will be frozen as the door closes. It will accept your car again if you manage to get it out and attempt to drive back in.", false));
+
         garages.add(new Garage(24, new Location(-364.439, 1194.37, 18.597), "cn2gar1", "Fort Carson garage"));
         garages.add(new Garage(25, new Location(430.059, 2542.31, 15.166), "cn2gar2", "Verdant Meadows garage"));
         garages.add(new Garage(26, new Location(783.155, -492.75, 16.3361), "burbdo2", "Dillimore garage"));
@@ -84,48 +110,55 @@ public class Garage {
         garages.add(new Garage(30, new Location(1408.65, 1899.52, 10.115), "blob6", "Redsands West garage"));
         garages.add(new Garage(31, new Location(1694.8, -2088.7, 12.3636), "carlas1", "El Corona garage"));
         garages.add(new Garage(32, new Location(1352.58, -636.657, 108.135), "CEsafe1", "Muholland garage"));
-        garages.add(new Garage(33, new Location(1523.92, -1653.23, 4.72837), "imp_la", "Los Santos impound lot"));
-        garages.add(new Garage(34, new Location(-1652.78, 647.502, -6.04924), "imp_sf", "San Fierro impound lot"));
-        garages.add(new Garage(35, new Location(2218.06, 2448.06, -8.43807), "imp_lv", "Las Venturas impound lot"));
-        garages.add(new Garage(36, new Location(2640.78, -2049.99, 12.543), "modlast", "Loco Low Co"));
-        garages.add(new Garage(37, new Location(-2728.53, 212.295, 3.45112), "mds1SFS", "Wheels Arch Angel"));
+
+        garages.add(new Garage(33, new Location(1523.92, -1653.23, 4.72837), "imp_la", "Los Santos impound lot", false));
+        garages.add(new Garage(34, new Location(-1652.78, 647.502, -6.04924), "imp_sf", "San Fierro impound lot", false));
+        garages.add(new Garage(35, new Location(2218.06, 2448.06, -8.43807), "imp_lv", "Las Venturas impound lot", false));
+
+        garages.add(new Garage(36, new Location(2640.78, -2049.99, 12.543), "modlast", "Loco Low Co", false));
+        garages.add(new Garage(37, new Location(-2728.53, 212.295, 3.45112), "mds1SFS", "Wheels Arch Angel", false));
+        garages.add(new Garage(38, Location.invalid(), "transfender", "Transfender", false));
+
         garages.add(new Garage(39, new Location(-2108.92, 886.553, 75.566), "sav1sfe", "Calton Heights garage"));
         garages.add(new Garage(40, new Location(-2699.12, 821.489, 49.0042), "sav1sfw", "Paradiso garage"));
         garages.add(new Garage(41, new Location(-2043.1, 118.609, 27.821), "hbgdSFS", "Main Doherty garage"));
         garages.add(new Garage(42, new Location(-2454.02, -131.556, 25.0886), "svgsfs1", "Hashbury garage"));
+
+        garages.add(new Garage(43, Location.invalid(), "burglary", "Burglary garage", false));
+
         garages.add(new Garage(44, new Location(1550.98, 1155.36, 8.97329), "vgshngr", "AT 400 hangar"));
         garages.add(new Garage(45, new Location(383.843, 2433.28, 15.166), "dhangar", "Verdant Meadows hangar"));
 
         //FIXME: Add correct ids
-        garages.add(new Garage(0, new Location(-1794.15, 1429.69, 4.37321), "", "Esplanade North garage used in \"Ran Fa Li\""));
-        garages.add(new Garage(0, new Location(-1694.78, 1033.15, 44.1937), "", "Downtown garage used in \"Yay Ka-Boom-Boom\""));
-        garages.add(new Garage(0, new Location(-2114.42, -2462.27, 29.4809), "amumis", "Angel Pine garage used in \"Puncture Wounds\""));
-        garages.add(new Garage(0, new Location(1968.23, 2157.88, 9.59696), "blob1", "Redsands East Pay n Spray"));
-        garages.add(new Garage(0, new Location(2002.96, 2303.72, 9.61706), "blob2", "Welding and Wedding bomb shop"));
-        garages.add(new Garage(0, new Location(1038.24, -1025.67, 31.1027), "bodLAwN", "Los Santos Transfender"));
-        garages.add(new Garage(0, new Location(	-2112.48, -21.214, 34.303	),"brgSFSE","San Fierro burglary garage"));
-        garages.add(new Garage(0, new Location(2738.4, -2012.55, 12.5759), "burg_lk", "Los Santos burglary garage"));
-        garages.add(new Garage(0, new Location(715.806, -462.403, 14.9635), "CEspray", "Dillimore Pay n Spray"));
-        garages.add(new Garage(0, new Location(-103.636, 1112.42, 18.7017), "CN2spry", "Fort Carson Pay n Spray"));
-        garages.add(new Garage(0, new Location(-1424.11, 2576.61, 54.8156), "CNspray", "El Quebrados Pay n Spray"));
-        garages.add(new Garage(0, new Location(1873.97, -2096.55, 12.487), "duf_LAS", "El Corona garage used in \"Los Desperados\""));
-        garages.add(new Garage(0, new Location(-2171.43, 649.416, 49.8742), "fdorsfe", "Wu Zi's garage"));
-        garages.add(new Garage(0, new Location(-397.297, 2223.17, 41.3824), "ghostdr", "El Castillo del Diablo garage used in \"Interdiction\""));
-        garages.add(new Garage(0, new Location(1843.91, -1858.8, 12.3645), "lasbomb", "Los Santos bomb shop"));
-        garages.add(new Garage(0, new Location(-2057.35, 150.803, 27.8286), "LCKSfse", "Doherty garage"));
-        garages.add(new Garage(0, new Location(-1941.04, 251.714, 33.4274), "mdsSFSe", "San Fierro Transfender"));
-        garages.add(new Garage(0, new Location(-1790.97, 1209.71, 23.763), "michdr", "Michelle's garage"));
-        garages.add(new Garage(0, new Location(1809.46, -2150.67, 12.4283), "modgLAS", "Cesar's garage"));
-        garages.add(new Garage(0, new Location(1640.37, -1520.07, 12.5118), "mul_lan", "Downtown Los Santos garage used in \"Life's a Beach\""));
-        garages.add(new Garage(0, new Location(2056.6, -1835.9, 12.5443), "sprLAE", "Idlewood Pay n Spray"));
-        garages.add(new Garage(0, new Location(1021.81, -1018.71, 30.9081), "sprLAe", "Temple Pay n Spray"));
-        garages.add(new Garage(0, new Location(491.103, -1747.55, 9.45516), "spLAw2", "Verona Beach Pay n Spray"));
-        garages.add(new Garage(0, new Location(-1908.93, 292.353, 40.0413), "sprsfse", "Downtown San Fierro Pay n Spray"));
-        garages.add(new Garage(0, new Location(-2430.13, 1013.71, 49.3413), "sprsfw", "Juniper Hollow Pay n Spray"));
-        garages.add(new Garage(0, new Location(-2735.46, 60.7331, 3.07005), "tbon", "Ocean Flat garage used in \"T-Bone Mendez\""));
-        garages.add(new Garage(0, new Location(2389.6, 1483.26, 9.81843), "timy1", "Las Venturas unused Pay n Spray"));
-        garages.add(new Garage(0, new Location(2382.28, 1044, 9.8337), "vEcmod", "Las Venturas Transfender"));
-        garages.add(new Garage(0, new Location(2602.6, 1438.84, 9.8337), "vgElock", "Las Venturas burglary garage"));
+        garages.add(new Garage(0, new Location(-1794.15, 1429.69, 4.37321), "", "Esplanade North garage used in \"Ran Fa Li\"", false));
+        garages.add(new Garage(0, new Location(-1694.78, 1033.15, 44.1937), "", "Downtown garage used in \"Yay Ka-Boom-Boom\"", false));
+        garages.add(new Garage(0, new Location(-2114.42, -2462.27, 29.4809), "amumis", "Angel Pine garage used in \"Puncture Wounds\"", false));
+        garages.add(new Garage(0, new Location(1968.23, 2157.88, 9.59696), "blob1", "Redsands East Pay n Spray", false));
+        garages.add(new Garage(0, new Location(2002.96, 2303.72, 9.61706), "blob2", "Welding and Wedding bomb shop", false));
+        garages.add(new Garage(0, new Location(1038.24, -1025.67, 31.1027), "bodLAwN", "Los Santos Transfender", false));
+        garages.add(new Garage(0, new Location(-2112.48, -21.214, 34.303), "brgSFSE", "San Fierro burglary garage", false));
+        garages.add(new Garage(0, new Location(2738.4, -2012.55, 12.5759), "burg_lk", "Los Santos burglary garage", false));
+        garages.add(new Garage(0, new Location(715.806, -462.403, 14.9635), "CEspray", "Dillimore Pay n Spray", false));
+        garages.add(new Garage(0, new Location(-103.636, 1112.42, 18.7017), "CN2spry", "Fort Carson Pay n Spray", false));
+        garages.add(new Garage(0, new Location(-1424.11, 2576.61, 54.8156), "CNspray", "El Quebrados Pay n Spray", false));
+        garages.add(new Garage(0, new Location(1873.97, -2096.55, 12.487), "duf_LAS", "El Corona garage used in \"Los Desperados\"", false));
+        garages.add(new Garage(0, new Location(-2171.43, 649.416, 49.8742), "fdorsfe", "Wu Zi's garage", false));
+        garages.add(new Garage(0, new Location(-397.297, 2223.17, 41.3824), "ghostdr", "El Castillo del Diablo garage used in \"Interdiction\"", false));
+        garages.add(new Garage(0, new Location(1843.91, -1858.8, 12.3645), "lasbomb", "Los Santos bomb shop", false));
+        garages.add(new Garage(0, new Location(-2057.35, 150.803, 27.8286), "LCKSfse", "Doherty garage", false));
+        garages.add(new Garage(0, new Location(-1941.04, 251.714, 33.4274), "mdsSFSe", "San Fierro Transfender", false));
+        garages.add(new Garage(0, new Location(-1790.97, 1209.71, 23.763), "michdr", "Michelle's garage", false));
+        garages.add(new Garage(0, new Location(1809.46, -2150.67, 12.4283), "modgLAS", "Cesar's garage", false));
+        garages.add(new Garage(0, new Location(1640.37, -1520.07, 12.5118), "mul_lan", "Downtown Los Santos garage used in \"Life's a Beach\"", false));
+        garages.add(new Garage(0, new Location(2056.6, -1835.9, 12.5443), "sprLAE", "Idlewood Pay n Spray", false));
+        garages.add(new Garage(0, new Location(1021.81, -1018.71, 30.9081), "sprLAe", "Temple Pay n Spray", false));
+        garages.add(new Garage(0, new Location(491.103, -1747.55, 9.45516), "spLAw2", "Verona Beach Pay n Spray", false));
+        garages.add(new Garage(0, new Location(-1908.93, 292.353, 40.0413), "sprsfse", "Downtown San Fierro Pay n Spray", false));
+        garages.add(new Garage(0, new Location(-2430.13, 1013.71, 49.3413), "sprsfw", "Juniper Hollow Pay n Spray", false));
+        garages.add(new Garage(0, new Location(-2735.46, 60.7331, 3.07005), "tbon", "Ocean Flat garage used in \"T-Bone Mendez\"", false));
+        garages.add(new Garage(0, new Location(2389.6, 1483.26, 9.81843), "timy1", "Las Venturas unused Pay n Spray", false));
+        garages.add(new Garage(0, new Location(2382.28, 1044, 9.8337), "vEcmod", "Las Venturas Transfender", false));
+        garages.add(new Garage(0, new Location(2602.6, 1438.84, 9.8337), "vgElock", "Las Venturas burglary garage", false));
     }
 
     public static class Car {
