@@ -26,4 +26,17 @@ public class Util {
         for (i = 0; i < data.length && data[i] != 0; i++) ;
         return new String(data, 0, i);
     }
+
+    public static byte[] getBytes(int begin, int end, byte[] array) {
+
+        // Create a new byte array
+        byte[] data = new byte[end - begin];
+
+        for (int i = 0; i < end - begin; i++) {
+            data[i] = array[begin + i];
+        }
+
+        // Return
+        return data;
+    }
 }
