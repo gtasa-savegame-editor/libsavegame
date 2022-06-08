@@ -73,20 +73,36 @@ public class Variable<E> implements TextFieldInterface {
 
     @Override
     public void setText(String text) throws InvalidValueException {
+        //TODO: this method is disgusting
         if (value instanceof String) {
-            //noinspection unchecked it's checked, check again
+            //noinspection unchecked
             value = (E) text;
-        } else if (value instanceof Integer) {
-            //noinspection unchecked it's checked, check again
-            value = (E) Integer.valueOf(Integer.parseInt(text));
-        } else if (value instanceof Float) {
-            //noinspection unchecked it's checked, check again
-            value = (E) Float.valueOf(Float.parseFloat(text));
-        } else if (value instanceof Boolean) {
-            //noinspection unchecked it's checked, check again
-            value = (E) Boolean.valueOf(Boolean.parseBoolean(text));
+        } else if (text.isEmpty()) {
+            if (value instanceof Integer) {
+                //noinspection unchecked
+                value = (E) Integer.valueOf(0);
+            } else if (value instanceof Float) {
+                //noinspection unchecked
+                value = (E) Float.valueOf(0f);
+            } else if (value instanceof Boolean) {
+                //noinspection unchecked
+                value = (E) Boolean.valueOf(false);
+            } else {
+                throw new RuntimeException("Not implemented!");
+            }
         } else {
-            throw new RuntimeException("Not implemented!");
+            if (value instanceof Integer) {
+                //noinspection unchecked
+                value = (E) Integer.valueOf(Integer.parseInt(text));
+            } else if (value instanceof Float) {
+                //noinspection unchecked
+                value = (E) Float.valueOf(Float.parseFloat(text));
+            } else if (value instanceof Boolean) {
+                //noinspection unchecked
+                value = (E) Boolean.valueOf(Boolean.parseBoolean(text));
+            } else {
+                throw new RuntimeException("Not implemented!");
+            }
         }
         handleChange(value);
     }
