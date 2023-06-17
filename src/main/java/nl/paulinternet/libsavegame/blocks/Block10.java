@@ -12,7 +12,7 @@ public class Block10 implements Link {
             int pos = 0x2f6a + 0x11 * zone.getId();
 
             // Read gangs
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 10; i++) {
                 zone.setValue(i, io.readByte(10, pos + i));
             }
 
@@ -42,7 +42,7 @@ public class Block10 implements Link {
             int pos = 0x2f6a + 0x11 * zone.getId();
 
             // Save gangs
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 10; i++) {
                 io.writeByte(10, pos + i, zone.getValue(i));
             }
 
