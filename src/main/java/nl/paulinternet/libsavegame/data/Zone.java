@@ -18,7 +18,7 @@ public class Zone {
 
     public static final int BALLAS = 0, GROVE = 1, VAGOS = 2, SF_RIFA = 3, DA_NANG = 4, ITALIAN = 5;
     public static final int TRIADS = 6, AZTECAS = 7, UNUSED1 = 8, UNUSED2 = 9, DEALER = 0xa, POPCYCLE = 0xf, PED = 0x10;
-    public static final int GANG_PRESENT = 0x11, DISABLE_FOOTCOPS = 0x12;
+    public static final int GANG_PRESENT = 0x11, DISABLE_FOOT_COPS = 0x12;
 
     private int id;
     private int x, y;
@@ -27,7 +27,7 @@ public class Zone {
     private int popcycle;
     private int dealer;
     private int ped;
-    private boolean gangPresent, disabledFootcops;
+    private boolean gangPresent, disabledFootCops;
     private Color color;
 
     public Zone(int id, int x, int y, int width, int height) {
@@ -73,8 +73,8 @@ public class Zone {
             case GANG_PRESENT:
                 gangPresent = value != 0;
                 break;
-            case DISABLE_FOOTCOPS:
-                disabledFootcops = value != 0;
+            case DISABLE_FOOT_COPS:
+                disabledFootCops = value != 0;
                 break;
             default:
                 gang[id] = value;
@@ -93,8 +93,8 @@ public class Zone {
                 return dealer;
             case GANG_PRESENT:
                 return gangPresent ? 1 : 0;
-            case DISABLE_FOOTCOPS:
-                return disabledFootcops ? 1 : 0;
+            case DISABLE_FOOT_COPS:
+                return disabledFootCops ? 1 : 0;
             default:
                 return gang[id];
         }

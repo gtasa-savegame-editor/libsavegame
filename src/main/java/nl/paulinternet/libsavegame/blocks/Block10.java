@@ -23,7 +23,7 @@ public class Block10 implements Link {
             zone.setValue(Zone.POPCYCLE, popcycle & 0x1f);
             zone.setValue(Zone.PED, io.readByte(10, pos + 0x10));
             zone.setValue(Zone.GANG_PRESENT, popcycle & 0x20);
-            zone.setValue(Zone.DISABLE_FOOTCOPS, popcycle & 0x80);
+            zone.setValue(Zone.DISABLE_FOOT_COPS, popcycle & 0x80);
         }
 
         // Check sum of discovered areas
@@ -51,7 +51,7 @@ public class Block10 implements Link {
 
             int popcycle = zone.getValue(Zone.POPCYCLE);
             popcycle |= zone.getValue(Zone.GANG_PRESENT) * 0x20;
-            popcycle |= zone.getValue(Zone.DISABLE_FOOTCOPS) * 0x80;
+            popcycle |= zone.getValue(Zone.DISABLE_FOOT_COPS) * 0x80;
 
             io.writeByte(10, pos + 0xf, popcycle);
             io.writeByte(10, pos + 0x10, zone.getValue(Zone.PED));
