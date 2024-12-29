@@ -10,6 +10,7 @@ import java.util.zip.Checksum;
 public class SavegameData {
     public static final int FILESIZE = 202752;
     public static final int FILESIZE_ANDROID = 195002;
+    public static final int FILESIZE_DEFINITIVE_EDITION = 395926;
     public static final byte[] BLOCK = new byte[]{66, 76, 79, 67, 75};
 
     private final ByteSequence[] block = new ByteSequence[30];
@@ -26,6 +27,7 @@ public class SavegameData {
      */
     public SavegameData(File file) throws IOException, FileFormatException {
         boolean android = false;
+        boolean definitiveEdition = true;
         // Read the data
         RandomAccessFile rfile = null;
         byte[] bytes;
@@ -36,6 +38,9 @@ public class SavegameData {
             } else if (rfile.length() == FILESIZE_ANDROID) {
                 bytes = new byte[FILESIZE_ANDROID - 4];
                 android = true;
+            } else if (rfile.length() == FILESIZE_DEFINITIVE_EDITION) {
+                bytes = new byte[FILESIZE_DEFINITIVE_EDITION - 4];
+                definitiveEdition = true;
             } else {
                 throw new FileFormatException();
             }
@@ -50,7 +55,7 @@ public class SavegameData {
         }
 
         // Init
-        init(bytes, android);
+        init(bytes, android, definitiveEdition);
     }
 
     /**
@@ -73,7 +78,7 @@ public class SavegameData {
         }
     }
 
-    private void init(byte[] bytes, boolean android) throws IOException, FileFormatException {
+    private void init(byte[] bytes, boolean android, boolean definitiveEdition) throws IOException, FileFormatException {
         // Search every occurrence of "BLOCK"
         int pos = 0;
         int blockCount = android ? 31 : 34;

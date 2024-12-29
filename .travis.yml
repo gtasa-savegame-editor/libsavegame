@@ -14,7 +14,7 @@ jobs:
     os: linux
     dist: bionic
     language: java
-    jdk: openjdk11
+    jdk: openjdk23
     addons:
       apt:
         update: true
@@ -27,7 +27,7 @@ jobs:
     os: linux
     dist: bionic
     language: java
-    jdk: openjdk11
+    jdk: openjdk23
     addons:
       apt:
         update: true
@@ -42,7 +42,7 @@ jobs:
     os: linux
     dist: bionic
     language: java
-    jdk: openjdk11
+    jdk: openjdk23
     addons:
       apt:
         update: true

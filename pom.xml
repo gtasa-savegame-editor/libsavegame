@@ -12,7 +12,7 @@
     <name>GTA:SA Savegame API</name>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>23</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- versions -->
         <slf4j.version>1.7.30</slf4j.version>
