@@ -72,7 +72,7 @@ public class SavegameData {
             in.readFully(bytes);
             in.close();
 
-            init(bytes, false);
+            init(bytes, false, false);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
